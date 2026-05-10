@@ -13,6 +13,7 @@ const Register = () => {
     company_name: ''
   });
   const [error, setError] = useState('');
+  const [success, setSuccess] = useState('');
   const [loading, setLoading] = useState(false);
 
   const handleChange = (e) => {
@@ -22,9 +23,13 @@ const Register = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
+    setError('');
+    setSuccess('');
     const result = await register(formData);
     if (!result.success) {
       setError(typeof result.error === 'object' ? JSON.stringify(result.error) : result.error);
+    } else {
+      setSuccess(result.message || 'Registration successful!');
     }
     setLoading(false);
   };
@@ -39,6 +44,7 @@ const Register = () => {
         </div>
         <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
           {error && <div className="text-red-500 text-sm text-center bg-red-50 p-3 rounded-lg">{error}</div>}
+          {success && <div className="text-green-600 text-sm text-center bg-green-50 p-3 rounded-lg border border-green-200">{success}</div>}
           <div className="grid grid-cols-2 gap-4">
             <input
               name="first_name"

@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 const Login = () => {
   const { login } = useContext(AuthContext);
-  const [formData, setFormData] = useState({ username: '', password: '' });
+  const [formData, setFormData] = useState({ email: '', password: '' });
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
 
@@ -15,7 +15,7 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-    const result = await login(formData.username, formData.password);
+    const result = await login(formData.email, formData.password);
     if (!result.success) {
       setError(result.error);
     }
@@ -38,11 +38,11 @@ const Login = () => {
           <div className="space-y-4">
             <div>
               <input
-                name="username"
-                type="text"
+                name="email"
+                type="email"
                 required
                 className="appearance-none rounded-xl relative block w-full px-4 py-3 border border-slate-300 placeholder-slate-500 text-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm transition-colors"
-                placeholder="Username"
+                placeholder="Email Address"
                 onChange={handleChange}
               />
             </div>
